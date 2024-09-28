@@ -95,7 +95,7 @@ pub enum Node {
     TorusSector {
         big_r: f32,
         small_r: f32,
-        /// The sin/cos of the half-angle, so that half_angle=PI means full torus, half_angle=PI/2 means half torus, etc.
+        /// The sin/cos of the half-angle, so that `half_angle=PI` means full torus, `half_angle=PI/2` means half torus, etc.
         sin_cos_half_angle: (f32, f32),
     },
 

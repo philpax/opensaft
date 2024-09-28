@@ -106,7 +106,7 @@ pub struct RgbWithDistance(pub Vec4);
 impl SignedDistance for RgbWithDistance {
     #[inline]
     fn infinity() -> Self {
-        Self(Vec4::new(1.0, 1.0, 1.0, core::f32::INFINITY))
+        Self(Vec4::new(1.0, 1.0, 1.0, f32::INFINITY))
     }
 
     #[inline]

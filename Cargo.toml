@@ -71,7 +71,7 @@ with_serde = ["serde", "glam/serde", "saft-sdf/with_serde"]
 with_speedy = ["speedy", "saft-sdf/with_speedy"]
 
 [workspace.lints.clippy]
-all = "warn"
+all = { level = "warn", priority = 1 }
 await_holding_lock = "warn"
 branches_sharing_code = "warn"
 cast_lossless = "warn"
@@ -130,7 +130,6 @@ match_same_arms = "warn"
 match_wild_err_arm = "warn"
 match_wildcard_for_single_variants = "warn"
 mem_forget = "warn"
-mismatched_target_os = "warn"
 missing_enforced_import_renames = "warn"
 mod_module_files = "warn"
 mut_mut = "warn"

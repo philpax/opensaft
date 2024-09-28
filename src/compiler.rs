@@ -9,7 +9,6 @@ use glam::Vec3;
 use glam::Vec4;
 use saft_sdf::Opcode;
 
-///
 #[derive(thiserror::Error, Debug, Copy, Clone, PartialEq, Eq)]
 pub enum Error {
     #[error("Invalid program: {0}")]
