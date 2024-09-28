@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+## 0.34.2 - 2024-09-20
+
+- Rename to `opensaft-sdf` and remove `macaw` dependency
+
 ## 0.34.1 - 2024-02-21
 
 - Require Rust 1.76.0

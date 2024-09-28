@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+## 0.2.2 - 2024-09-20
+
+- Rename to `opensaft-sdf` and remove `macaw` dependency
+
 ## 0.2.0 - 2023-08-23
 - Bump minor version due to the `num_enum` dependency change that was released in 0.1.1.
   `num_enum` is part of the public api and a minor bump of it needs to be paired with a
