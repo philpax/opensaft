@@ -183,3 +183,6 @@ nonstandard_style = "warn"
 rust_2018_idioms = "warn"
 trivial_numeric_casts = "warn"
 unsafe_op_in_unsafe_fn = "warn"
+unexpected_cfgs = { level = "warn", check-cfg = [
+    'cfg(target_arch, values("spirv"))',
+] }
