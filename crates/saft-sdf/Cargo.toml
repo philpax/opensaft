@@ -1,0 +1,37 @@
+[package]
+name = "saft-sdf"
+version = "0.2.1"
+authors = [
+    "Embark <opensource@embark-studios.com>",
+    "Niklas Nummelin <niklas.nummelin@embark-studios.com>",
+]
+description = "Signed distance field function library"
+license = "MIT OR Apache-2.0"
+keywords = ["gamedev", "sdf"]
+categories = ["game-development", "graphics"]
+edition = "2021"
+rust-version = "1.76.0"
+publish = true
+
+[lints]
+workspace = true
+
+[lib]
+doctest = false
+test = true
+
+[dependencies]
+arbitrary = { version = "1", optional = true, features = ["derive"] }
+macaw = { version = "0.19.0", default-features = false, path = "../../../macaw" }
+num_enum = { version = "0.7.0", optional = true }
+serde = { version = "1.0.104", features = ["derive"], optional = true }
+speedy = { version = "0.8", optional = true, features = ["glam"] }
+num-traits = { version = "0.2.14", default-features = false }
+
+[features]
+default = ["macaw/std"]
+with_opcode_derives = ["num_enum"]
+with_arbitrary = ["arbitrary"]
+with_serde = ["serde", "macaw/with_serde"]
+with_speedy = ["speedy"]
+libm = ["macaw/libm", "num-traits/libm"]
