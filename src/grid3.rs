@@ -1,4 +1,4 @@
-use macaw::Vec3;
+use glam::Vec3;
 
 use crate::SignedDistance;
 

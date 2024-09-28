@@ -38,11 +38,14 @@ ahash = { version = "0.8.1", default-features = false, features = [
 ] }
 arbitrary = { version = "1", optional = true, features = ["derive"] }
 bincode = { version = "1.3", optional = true }
-macaw = { version = "0.19.0", path = "../macaw" }
+glam = "=0.27.0"
 num_enum = "0.7.0"
 rayon = { version = "1.5", optional = true }
 serde = { version = "1.0.104", features = ["derive"], optional = true }
-speedy = { version = "0.8", optional = true, features = ["glam"] }
+# This commit of `speedy` supports glam 0.27. This can be changed back to a version once a new version is released.
+speedy = { git = "https://github.com/koute/speedy.git", rev = "81c665c", optional = true, features = [
+    "glam",
+] }
 thiserror = "1"
 
 saft-sdf = { version = "0.2.0", path = "crates/saft-sdf", features = [
@@ -54,16 +57,17 @@ saft-sdf = { version = "0.2.0", path = "crates/saft-sdf", features = [
 tiny-bench = "0.3.0"
 
 [features]
-default = ["optimized"]
+default = ["optimized", "std"]
 
 optimized = []
+std = ["glam/std"]
 with_arbitrary = ["arbitrary", "saft-sdf/with_arbitrary"]
 with_bincode = ["bincode"]
 # NOTE[TSolberg]: This feature can cause Rayon to overflow the stack when lots of creatures exist.
 #                 This can occur if those creatures have very high complexity so lots of creatures
 #                 are getting baked at the same time, generating overlapping long-running jobs.
 with_rayon = ["rayon"]
-with_serde = ["serde", "macaw/with_serde", "saft-sdf/with_serde"]
+with_serde = ["serde", "glam/serde", "saft-sdf/with_serde"]
 with_speedy = ["speedy", "saft-sdf/with_speedy"]
 
 [workspace.lints.clippy]

@@ -3,7 +3,7 @@
 use ahash::AHashMap as HashMap;
 
 use super::*;
-use macaw::Vec3;
+use glam::Vec3;
 
 // Straight port of ol' Paul Bourke code.
 // Marching cubes like it's 1999.

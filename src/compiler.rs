@@ -3,10 +3,10 @@ use super::graph::Node;
 use super::graph::NodeId;
 use super::program::Program;
 use super::Material;
-use macaw::Quat;
-use macaw::Vec2;
-use macaw::Vec3;
-use macaw::Vec4;
+use glam::Quat;
+use glam::Vec2;
+use glam::Vec3;
+use glam::Vec4;
 use saft_sdf::Opcode;
 
 ///

@@ -4,9 +4,9 @@ use super::Opcode;
 use crate::sdf;
 use crate::structs::Material;
 use crate::structs::SignedDistance;
-use macaw::Quat;
-use macaw::Vec3;
-use macaw::Vec4;
+use glam::Quat;
+use glam::Vec3;
+use glam::Vec4;
 
 #[derive(Copy, Clone)]
 pub struct Interpreter<SD: SignedDistance, const STACK_DEPTH: usize = 64> {

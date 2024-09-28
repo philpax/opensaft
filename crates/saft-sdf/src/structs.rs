@@ -1,5 +1,5 @@
-use macaw::Vec3;
-use macaw::Vec4;
+use glam::Vec3;
+use glam::Vec4;
 
 #[derive(Copy, Clone)]
 #[cfg_attr(feature = "with_serde", derive(serde::Serialize, serde::Deserialize))]

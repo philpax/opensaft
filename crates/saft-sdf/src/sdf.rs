@@ -2,7 +2,7 @@
 
 use super::Material;
 use super::SignedDistance;
-use macaw::*;
+use glam::*;
 #[cfg(target_arch = "spirv")]
 use num_traits::Float;
 

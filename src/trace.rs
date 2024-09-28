@@ -1,9 +1,9 @@
+use crate::math::Ray3;
 use crate::sphere_tracing::ClosestHit;
 use crate::sphere_tracing::Options;
 use crate::Graph;
 use crate::NodeId;
-use macaw::Ray3;
-use macaw::Vec3;
+use glam::Vec3;
 
 /// Marches a ray from `t_range.start()` until `t_range.end()`,
 /// returning the first hit, or the place where the trace got closest to the surface.

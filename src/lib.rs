@@ -6,7 +6,7 @@
     clippy::enum_glob_use,      // TODO: Add? Used a lot on the opcodes
 )]
 
-use macaw::Vec3;
+use glam::Vec3;
 
 pub use saft_sdf::*;
 
@@ -36,7 +36,9 @@ pub use trace::*;
 mod codegen;
 pub use codegen::*;
 
-pub use macaw::BoundingBox;
+mod math;
+pub use math::*;
+
 #[derive(Clone, Copy, Debug, PartialEq)]
 #[cfg_attr(feature = "with_serde", derive(serde::Serialize, serde::Deserialize))]
 #[cfg_attr(feature = "with_speedy", derive(speedy::Writable, speedy::Readable))]
@@ -127,7 +129,7 @@ pub fn mesh_from_sdf_func(
     sd_world: impl Fn(Vec3) -> f32 + Send + Sync,
     color_world: impl Fn(Vec3) -> Vec3 + Send + Sync,
 ) -> Result<TriangleMesh, Error> {
-    use macaw::*;
+    use glam::*;
 
     let world_from_grid_scale = bb.size().x / (resolution[0] as f32 - 1.0);
     let grid_from_world_scale = 1.0 / world_from_grid_scale;

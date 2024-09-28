@@ -1,8 +1,8 @@
 use super::Material;
-use macaw::BoundingBox;
-use macaw::Quat;
-use macaw::Vec3;
-use macaw::Vec4;
+use crate::math::BoundingBox;
+use glam::Quat;
+use glam::Vec3;
+use glam::Vec4;
 use std::collections::HashMap;
 use std::hash::Hash;
 
@@ -399,14 +399,14 @@ impl Graph {
     pub fn op_iso_transform(
         &mut self,
         mut node: NodeId,
-        transform: &macaw::IsoTransform,
+        transform: &crate::IsoTransform,
     ) -> NodeId {
         node = self.op_rotate(node, transform.rotation());
         node = self.op_translate(node, transform.translation());
         node
     }
 
-    pub fn op_conformal3(&mut self, mut node: NodeId, transform: &macaw::Conformal3) -> NodeId {
+    pub fn op_conformal3(&mut self, mut node: NodeId, transform: &crate::Conformal3) -> NodeId {
         node = self.op_scale(node, transform.scale());
         node = self.op_rotate(node, transform.rotation());
         node = self.op_translate(node, transform.translation());

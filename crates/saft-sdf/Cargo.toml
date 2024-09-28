@@ -22,16 +22,19 @@ test = true
 
 [dependencies]
 arbitrary = { version = "1", optional = true, features = ["derive"] }
-macaw = { version = "0.19.0", default-features = false, path = "../../../macaw" }
+glam = { version = "=0.27.0" }
 num_enum = { version = "0.7.0", optional = true }
 serde = { version = "1.0.104", features = ["derive"], optional = true }
-speedy = { version = "0.8", optional = true, features = ["glam"] }
+# This commit of `speedy` supports glam 0.27. This can be changed back to a version once a new version is released.
+speedy = { git = "https://github.com/koute/speedy.git", rev = "81c665c", optional = true, features = [
+    "glam",
+] }
 num-traits = { version = "0.2.14", default-features = false }
 
 [features]
-default = ["macaw/std"]
+default = []
 with_opcode_derives = ["num_enum"]
 with_arbitrary = ["arbitrary"]
-with_serde = ["serde", "macaw/with_serde"]
+with_serde = ["serde", "glam/serde"]
 with_speedy = ["speedy"]
-libm = ["macaw/libm", "num-traits/libm"]
+libm = ["glam/libm", "num-traits/libm"]
