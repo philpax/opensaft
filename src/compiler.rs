@@ -7,7 +7,7 @@ use glam::Quat;
 use glam::Vec2;
 use glam::Vec3;
 use glam::Vec4;
-use saft_sdf::Opcode;
+use opensaft_sdf::Opcode;
 
 #[derive(thiserror::Error, Debug, Copy, Clone, PartialEq, Eq)]
 pub enum Error {

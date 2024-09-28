@@ -149,7 +149,7 @@ impl CodeGen {
     // Generates code that is used by the translated program
     pub fn get_library_code(&self) -> &'static str {
         match self.backend {
-            Backend::GLSL => saft_sdf::get_glsl_sdf_library_code(),
+            Backend::GLSL => opensaft_sdf::get_glsl_sdf_library_code(),
         }
     }
 

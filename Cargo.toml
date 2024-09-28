@@ -1,12 +1,12 @@
 [workspace]
-members = [".", "crates/saft-sdf"]
+members = [".", "crates/opensaft-sdf"]
 
 [workspace.package]
 edition = "2021"
 rust-version = "1.76.0"
 
 [package]
-name = "saft"
+name = "opensaft"
 version = "0.34.1"
 authors = [
     "Embark <opensource@embark-studios.com>",
@@ -48,7 +48,7 @@ speedy = { git = "https://github.com/koute/speedy.git", rev = "81c665c", optiona
 ] }
 thiserror = "1"
 
-saft-sdf = { version = "0.2.0", path = "crates/saft-sdf", features = [
+opensaft-sdf = { version = "0.2.0", path = "crates/opensaft-sdf", features = [
     "with_opcode_derives",
 ] }
 
@@ -61,14 +61,14 @@ default = ["optimized", "std"]
 
 optimized = []
 std = ["glam/std"]
-with_arbitrary = ["arbitrary", "saft-sdf/with_arbitrary"]
+with_arbitrary = ["arbitrary", "opensaft-sdf/with_arbitrary"]
 with_bincode = ["bincode"]
 # NOTE[TSolberg]: This feature can cause Rayon to overflow the stack when lots of creatures exist.
 #                 This can occur if those creatures have very high complexity so lots of creatures
 #                 are getting baked at the same time, generating overlapping long-running jobs.
 with_rayon = ["rayon"]
-with_serde = ["serde", "glam/serde", "saft-sdf/with_serde"]
-with_speedy = ["speedy", "saft-sdf/with_speedy"]
+with_serde = ["serde", "glam/serde", "opensaft-sdf/with_serde"]
+with_speedy = ["speedy", "opensaft-sdf/with_speedy"]
 
 [workspace.lints.clippy]
 all = { level = "warn", priority = 1 }

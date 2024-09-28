@@ -1,5 +1,5 @@
 use num_enum::TryFromPrimitiveError;
-use saft_sdf::Opcode;
+use opensaft_sdf::Opcode;
 use std::collections::hash_map::DefaultHasher;
 use std::hash::Hash;
 use std::hash::Hasher;

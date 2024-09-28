@@ -8,7 +8,7 @@
 
 use glam::Vec3;
 
-pub use saft_sdf::*;
+pub use opensaft_sdf::*;
 
 mod program;
 pub use program::*;
@@ -202,8 +202,8 @@ pub fn mesh_from_sdf(
 
 /// Pick a good expanded bounding box and grid size from the given tight bounding box
 pub fn sdf_bb_and_resolution(bb: BoundingBox, options: MeshOptions) -> (BoundingBox, [usize; 3]) {
-    assert!(bb.is_finite(), "Bad saft bounding box: {:?}", bb);
-    assert!(bb.volume() > 0.0, "Bad saft bounding box: {:?}", bb);
+    assert!(bb.is_finite(), "Bad opensaft bounding box: {:?}", bb);
+    assert!(bb.volume() > 0.0, "Bad opensaft bounding box: {:?}", bb);
 
     // Add at least this many grid points on each side
     let grid_padding = 1.0;

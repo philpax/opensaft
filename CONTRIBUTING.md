@@ -1,3 +1,7 @@
+# Contributing
+
+This package is a fork of Embark Studios' `saft` crate. Their guidelines have been reproduced as-is, but the Embark-specific sections are not applicable to this fork. The guidelines are largely applicable otherwise.
+
 # Embark Contributor Guidelines
 
 Welcome! This project is created by the team at [Embark Studios](https://embark.games). We're glad you're interested in contributing! We welcome contributions from people of all backgrounds who are interested in making great software with us.

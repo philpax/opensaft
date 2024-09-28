@@ -1,8 +1,8 @@
-# 🧃 OpenSaft
+# 🧃 OpenSaft-sdf
 
-Signed distance field function compiler/interpreter/discretizer/mesher
+Signed distance field interpreter and function library
 
-This is a fork of Embark Studios' [`saft`](https://crates.io/crates/saft) with the intent of making its source code more accessible to the public.
+This is a fork of Embark Studios' [`saft-sdf`](https://crates.io/crates/saft-sdf) with the intent of making its source code more accessible to the public.
 
 Previously, the original library's source code was only available through its published crate. It was never published to a public code repository, and [directional changes](https://github.com/EmbarkStudios/rust-ecosystem/commit/61f0ec820350a9e107f92e2dc189217d313c75db) at Embark suggest that this is unlikely to occur in the near future.
 
