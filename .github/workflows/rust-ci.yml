@@ -18,6 +18,12 @@ jobs:
           toolchain: stable
           override: true
 
+      # update speedy to the latest version
+      # for some reason, `cargo` resolves speedy with glam 0.28. running `update` on the crate
+      # forces it to re-resolve to 0.27. <https://github.com/philpax/opensaft/issues/1>
+      - name: update speedy
+        run: cargo update -p speedy
+
       # make sure all code has been formatted with rustfmt
       - name: check rustfmt
         run: |
@@ -44,6 +50,11 @@ jobs:
           toolchain: stable
           override: true
       - run: cargo fetch
+      # update speedy to the latest version
+      # for some reason, `cargo` resolves speedy with glam 0.28. running `update` on the crate
+      # forces it to re-resolve to 0.27. <https://github.com/philpax/opensaft/issues/1>
+      - name: update speedy
+        run: cargo update -p speedy
       - name: cargo test build
         # Note the use of release here means longer compile time, but much
         # faster test execution time. If you don't have any heavy tests it
@@ -57,6 +68,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          override: true
+      # update speedy to the latest version
+      # for some reason, `cargo` resolves speedy with glam 0.28. running `update` on the crate
+      # forces it to re-resolve to 0.27. <https://github.com/philpax/opensaft/issues/1>
+      - name: update speedy
+        run: cargo update -p speedy
       - uses: EmbarkStudios/cargo-deny-action@v1
 
   # This is commented out as the crates are unpublished and depend upon Git dependencies.

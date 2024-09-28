@@ -1,5 +1,6 @@
 [workspace]
 members = [".", "crates/opensaft-sdf"]
+resolver = "2"
 
 [workspace.package]
 edition = "2021"
@@ -42,7 +43,7 @@ glam = "=0.27.0"
 num_enum = "0.7.0"
 rayon = { version = "1.5", optional = true }
 serde = { version = "1.0.104", features = ["derive"], optional = true }
-# This commit of `speedy` supports glam 0.27. This can be changed back to a version once a new version is released.
+# <https://github.com/philpax/opensaft/issues/1>
 speedy = { git = "https://github.com/koute/speedy.git", rev = "81c665c", optional = true, features = [
     "glam",
 ] }
