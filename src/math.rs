@@ -11,9 +11,3 @@ pub use ray3::*;
 
 mod plane3;
 pub use plane3::*;
-
-mod conformal;
-pub use conformal::*;
-
-mod iso_transform;
-pub use iso_transform::*;

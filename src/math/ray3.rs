@@ -117,28 +117,6 @@ impl Ray3 {
     }
 }
 
-impl core::ops::Mul<Ray3> for super::IsoTransform {
-    type Output = Ray3;
-
-    fn mul(self, rhs: Ray3) -> Ray3 {
-        Ray3 {
-            origin: self.transform_point3(rhs.origin),
-            dir: self.transform_vector3(rhs.dir),
-        }
-    }
-}
-
-impl core::ops::Mul<Ray3> for crate::Conformal3 {
-    type Output = Ray3;
-
-    fn mul(self, rhs: Ray3) -> Ray3 {
-        Ray3 {
-            origin: self.transform_point3(rhs.origin),
-            dir: self.transform_vector3(rhs.dir),
-        }
-    }
-}
-
 impl core::ops::Mul<Ray3> for glam::Affine3A {
     type Output = Ray3;
 

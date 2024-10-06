@@ -1,7 +1,5 @@
 use glam::{Mat3A, Vec3};
 
-use super::{Conformal3, IsoTransform};
-
 /// A 3-dimensional axis-aligned bounding box
 #[derive(Clone, Copy, Default, PartialEq)]
 #[cfg_attr(feature = "with_serde", derive(serde::Serialize, serde::Deserialize))]
@@ -277,35 +275,7 @@ impl BoundingBox {
     /// since it must be large enough to contain the now rotated box.
     #[must_use]
     #[cfg(not(target_arch = "spirv"))]
-    pub fn transform_iso(&self, m: &IsoTransform) -> Self {
-        if self.is_nothing() {
-            Self::nothing()
-        } else {
-            transform_bounding_box(self.half_size(), self.center(), m)
-        }
-    }
-
-    /// Return a bounding box that contains this box after it has been transformed.
-    ///
-    /// Note that the rotated bounding box is very likely larger than the original,
-    /// since it must be large enough to contain the now rotated box.
-    #[must_use]
-    #[cfg(not(target_arch = "spirv"))]
     pub fn transform_affine3(&self, m: &glam::Affine3A) -> Self {
-        if self.is_nothing() {
-            Self::nothing()
-        } else {
-            transform_bounding_box(self.half_size(), self.center(), m)
-        }
-    }
-
-    /// Return a bounding box that contains this box after it has been transformed.
-    ///
-    /// Note that the rotated bounding box is very likely larger than the original,
-    /// since it must be large enough to contain the now rotated box.
-    #[must_use]
-    #[cfg(not(target_arch = "spirv"))]
-    pub fn transform_conformal3(&self, m: &Conformal3) -> Self {
         if self.is_nothing() {
             Self::nothing()
         } else {
@@ -318,21 +288,7 @@ trait TransformPoint3 {
     fn transform_point3(&self, p: Vec3) -> Vec3;
 }
 
-impl TransformPoint3 for super::IsoTransform {
-    #[inline(always)]
-    fn transform_point3(&self, p: Vec3) -> Vec3 {
-        self.transform_point3(p)
-    }
-}
-
 impl TransformPoint3 for glam::Affine3A {
-    #[inline(always)]
-    fn transform_point3(&self, p: Vec3) -> Vec3 {
-        self.transform_point3(p)
-    }
-}
-
-impl TransformPoint3 for Conformal3 {
     #[inline(always)]
     fn transform_point3(&self, p: Vec3) -> Vec3 {
         self.transform_point3(p)
@@ -343,24 +299,10 @@ trait ToScaledMat3A {
     fn to_scaled_mat3a(&self) -> Mat3A;
 }
 
-impl ToScaledMat3A for IsoTransform {
-    #[inline(always)]
-    fn to_scaled_mat3a(&self) -> Mat3A {
-        Mat3A::from_quat(self.rotation())
-    }
-}
-
 impl ToScaledMat3A for glam::Affine3A {
     #[inline(always)]
     fn to_scaled_mat3a(&self) -> Mat3A {
         self.matrix3
-    }
-}
-
-impl ToScaledMat3A for Conformal3 {
-    #[inline(always)]
-    fn to_scaled_mat3a(&self) -> Mat3A {
-        Mat3A::from_quat(self.rotation()).mul_scalar(self.scale())
     }
 }
 
@@ -414,8 +356,6 @@ fn rotate_bounding_box(half_size: Vec3, center: Vec3, q: glam::Quat) -> Bounding
 
 #[cfg(test)]
 mod test {
-    use super::Conformal3;
-    use super::IsoTransform;
     use super::*;
     use glam::Affine3A;
     use glam::Quat;
@@ -467,72 +407,6 @@ mod test {
             Vec3::distance(
                 bb_transformed.size(),
                 Vec3::new(expected_size_xy, expected_size_xy, SIZE)
-            ) < EPSILON
-        );
-    }
-
-    #[test]
-    fn test_transform_iso() {
-        const EPSILON: f32 = 1e-6;
-        const SIZE: f32 = 1.0;
-        const ANGLE: f32 = FRAC_PI_2 * 0.5; // 45 deg
-        let rotation = Quat::from_rotation_z(ANGLE);
-        let translation = Vec3::splat(1.0);
-        let transform = IsoTransform::from_rotation_translation(rotation, translation);
-        let bb = BoundingBox::from_center_size(Vec3::ZERO, Vec3::splat(SIZE));
-        let bb_transformed = bb.transform_iso(&transform);
-
-        let expected_size_xy: f32 = (2.0 * SIZE * SIZE).sqrt();
-        assert!(Vec3::distance(bb_transformed.center(), translation) < EPSILON);
-        assert!(
-            Vec3::distance(
-                bb_transformed.size(),
-                Vec3::new(expected_size_xy, expected_size_xy, SIZE)
-            ) < EPSILON
-        );
-    }
-
-    #[test]
-    fn test_transform_affine3() {
-        const EPSILON: f32 = 1e-6;
-        const SIZE: f32 = 1.0;
-        const SCALE: f32 = 2.0;
-        const ANGLE: f32 = FRAC_PI_2 * 0.5; // 45 deg
-        let rotation = Quat::from_rotation_z(ANGLE);
-        let translation = Vec3::splat(1.0);
-        let transform =
-            Affine3A::from_scale_rotation_translation(Vec3::splat(SCALE), rotation, translation);
-        let bb = BoundingBox::from_center_size(Vec3::ZERO, Vec3::splat(SIZE));
-        let bb_transformed = bb.transform_affine3(&transform);
-
-        let expected_size_xy: f32 = (2.0 * SIZE * SIZE * SCALE * SCALE).sqrt();
-        assert!(Vec3::distance(bb_transformed.center(), translation) < EPSILON);
-        assert!(
-            Vec3::distance(
-                bb_transformed.size(),
-                Vec3::new(expected_size_xy, expected_size_xy, SIZE * SCALE)
-            ) < EPSILON
-        );
-    }
-
-    #[test]
-    fn test_transform_conformal3() {
-        const EPSILON: f32 = 1e-6;
-        const SIZE: f32 = 1.0;
-        const SCALE: f32 = 2.0;
-        const ANGLE: f32 = FRAC_PI_2 * 0.5; // 45 deg
-        let rotation = Quat::from_rotation_z(ANGLE);
-        let translation = Vec3::splat(1.0);
-        let transform = Conformal3::from_scale_rotation_translation(SCALE, rotation, translation);
-        let bb = BoundingBox::from_center_size(Vec3::ZERO, Vec3::splat(SIZE));
-        let bb_transformed = bb.transform_conformal3(&transform);
-
-        let expected_size_xy: f32 = (2.0 * SIZE * SIZE * SCALE * SCALE).sqrt();
-        assert!(Vec3::distance(bb_transformed.center(), translation) < EPSILON);
-        assert!(
-            Vec3::distance(
-                bb_transformed.size(),
-                Vec3::new(expected_size_xy, expected_size_xy, SIZE * SCALE)
             ) < EPSILON
         );
     }

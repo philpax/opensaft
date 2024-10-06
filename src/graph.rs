@@ -399,17 +399,24 @@ impl Graph {
     pub fn op_iso_transform(
         &mut self,
         mut node: NodeId,
-        transform: &crate::IsoTransform,
+        rotation: impl Into<Quat>,
+        translation: impl Into<Vec3>,
     ) -> NodeId {
-        node = self.op_rotate(node, transform.rotation());
-        node = self.op_translate(node, transform.translation());
+        node = self.op_rotate(node, rotation.into());
+        node = self.op_translate(node, translation.into());
         node
     }
 
-    pub fn op_conformal3(&mut self, mut node: NodeId, transform: &crate::Conformal3) -> NodeId {
-        node = self.op_scale(node, transform.scale());
-        node = self.op_rotate(node, transform.rotation());
-        node = self.op_translate(node, transform.translation());
+    pub fn op_conformal3(
+        &mut self,
+        mut node: NodeId,
+        scale: impl Into<f32>,
+        rotation: impl Into<Quat>,
+        translation: impl Into<Vec3>,
+    ) -> NodeId {
+        node = self.op_scale(node, scale.into());
+        node = self.op_rotate(node, rotation.into());
+        node = self.op_translate(node, translation.into());
         node
     }
 }
